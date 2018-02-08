@@ -1,4 +1,4 @@
-import Reach, { PureComponent } from 'react';
+import React, { PureComponent } from 'react';
 
 class Demo extends PureComponent {
     static defaultProps = {
@@ -15,7 +15,7 @@ class Demo extends PureComponent {
     }
     add = () => {
         this.setState({
-            value: this.state.value++
+            value: this.state.value+1
         });
     }
     change = ev => {

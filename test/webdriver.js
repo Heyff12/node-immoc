@@ -1,0 +1,37 @@
+const { expect } = require('chai');
+const webdriver = require('selenium-webdriver');
+const By = webdriver.By;
+const chromeDriver = require('selenium-webdriver/chrome');
+
+describe('百度首页UI测试', function() {
+    this.timeout(50000);
+    let driver;
+    before(() => {
+        driver = new webdriver.Builder()
+            .forBrowser('chrome')
+            .setChromeOptions(new chromeDriver.Options().addArguments(['headless']))
+            .build();
+    });
+
+    it('should have title', done => {
+        driver.get('https://www.baidu.com').then(() => {
+            driver.getTitle().then(title => {
+                expect(title).to.equal('百度一下，你就知道');
+                done();
+            })
+        });
+    });
+
+    it('should have button value', done => {
+        driver.findElement(By.id('su')).then(button => {
+        	button.getAttribute('value').then(val=>{
+        		expect(val).to.equal('百度一下');
+                done();
+        	})
+        });
+    });
+
+    after(() => {
+        driver.quit();
+    });
+});
